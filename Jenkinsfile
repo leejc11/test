@@ -1,14 +1,15 @@
 pipeline {
-  agent none
-  stages {
-    stage('') {
-      steps {
-        echo '123'
-      }
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+                sh './gradlew check'
+            }
+        }
     }
-
-  }
-  environment {
-    a = '1'
-  }
+    post {
+        always {
+            junit 'build/reports/**/*.xml'
+        }
+    }
 }
